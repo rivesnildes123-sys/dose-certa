@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dose Certa - Gestão Inteligente de Medicamentos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --teal: #0d9488;
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+            --secondary-light: #d1fae5;
+            --whatsapp: #25d366;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-hover: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 10px;
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 90px;
+            font-size: 15px;
+        }
+
+        /* Header Principal */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 18px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+        }
+
+        .brand-text h1 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .status-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-pulse {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 900px;
+            margin: 24px auto;
+            padding: 0 20px;
+        }
+
+        /* Banner do Projeto Acadêmico */
+        .academic-card {
+            background: linear-gradient(135deg, #ffffff, #f0f9ff);
+            border: 1px solid #bae6fd;
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .academic-icon {
+            background: #0284c7;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+        }
+
+        .academic-text strong {
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .academic-text p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Navegação por Abas */
+        .nav-tabs {
+            display: flex;
+            background: var(--surface);
+            padding: 6px;
+            border-radius: var(--radius-lg);
+            gap: 6px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.88rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: var(--surface-hover);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        /* Progresso */
+        .progress-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .progress-track {
+            background: var(--border);
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #10b981, #059669);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 10px;
+        }
+
+        /* Item Dose */
+        .dose-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dose-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .dose-card.taken {
+            background: #f0fdf4;
+            border-color: #a7f3d0;
+        }
+
+        .dose-time-badge {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 10px 14px;
+            border-radius: 12px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .dose-card.taken .dose-time-badge {
+            background: var(--secondary-light);
+            color: var(--secondary-dark);
+        }
+
+        .dose-details {
+            flex: 1;
+        }
+
+        .dose-details h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .dose-details p {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+        }
+
+        .dose-actions-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* Botões */
+        .btn {
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            line-height: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366, #1da851);
+            color: white;
+            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-danger {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .btn-sm {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            border-radius: 8px;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.92rem;
+            background: #fafafa;
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 14px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Farmácia Card */
+        .pharmacy-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            margin-bottom: 14px;
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pharmacy-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .pharmacy-name {
+            font-weight: 800;
+            font-size: 1.05rem;
+        }
+
+        .pharmacy-dist {
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .price-highlight {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--secondary-dark);
+        }
+
+        /* Microanúncio Contextual */
+        .micro-ad-box {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 2px solid #f59e0b;
+            border-radius: var(--radius-md);
+            padding: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .ad-tag {
+            position: absolute;
+            top: -12px;
+            right: 16px;
+            background: #f59e0b;
+            color: white;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .micro-ad-box h5 {
+            color: #78350f;
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .micro-ad-box p {
+            color: #92400e;
+            font-size: 0.88rem;
+            margin-bottom: 12px;
+        }
+
+        .ad-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--radius-lg);
+            max-width: 520px;
+            width: 100%;
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .stock-chip {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .stock-ok { background: #d1fae5; color: #047857; }
+        .stock-low { background: #fef3c7; color: #b45309; }
+        .stock-out { background: #fee2e2; color: #b91c1c; }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding: 30px 20px 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        /* Autenticação */
+        .auth-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: radial-gradient(circle at top left, #e0f2fe, transparent 42%), var(--bg);
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+        }
+        .auth-brand { text-align: center; margin-bottom: 26px; }
+        .auth-brand .brand-icon { margin: 0 auto 12px; }
+        .auth-brand h2 { font-size: 1.6rem; font-weight: 800; }
+        .auth-brand p { color: var(--text-secondary); font-size: .9rem; }
+        .auth-switch { display: flex; gap: 8px; margin-bottom: 22px; padding: 5px; background: #f1f5f9; border-radius: 12px; }
+        .auth-switch button { flex: 1; border: 0; border-radius: 9px; padding: 10px; cursor: pointer; font-weight: 700; color: var(--text-secondary); background: transparent; }
+        .auth-switch button.active { color: white; background: var(--primary); }
+        .auth-error { color: var(--danger); font-size: .84rem; margin: 0 0 14px; min-height: 20px; }
+        .auth-note { color: var(--text-muted); font-size: .75rem; text-align: center; margin-top: 18px; }
+        .user-area { display:flex; align-items:center; gap:12px; }
+        .user-name { color:#e2e8f0; font-size:.82rem; font-weight:700; }
+        @media (max-width: 600px) {
+            .auth-card { padding: 24px 20px; }
+            .user-name { display:none; }
+        }
+
+
+        /* Recursos avançados Dose Certa */
+        .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:20px}
+        .feature-stat{background:#f8fafc;border:1px solid var(--border);border-radius:14px;padding:16px}
+        .feature-stat strong{display:block;font-size:1.25rem;color:var(--primary-dark)}
+        .feature-stat span{font-size:.82rem;color:var(--text-secondary)}
+        .dose-status-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+        .history-row,.log-row{padding:12px;border:1px solid var(--border);border-radius:12px;margin:8px 0;background:#fff}
+        .history-row small,.log-row small{color:var(--text-secondary)}
+        .pill-tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.72rem;font-weight:800;background:#e0f2fe;color:#075985}
+        .pill-taken{background:#d1fae5;color:#047857}.pill-late{background:#fef3c7;color:#92400e}.pill-ignored{background:#fee2e2;color:#991b1b}
+        .visual-preview{width:42px;height:42px;border-radius:12px;border:1px solid #cbd5e1;display:inline-flex;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}
+        .warning-box{padding:14px 16px;border:1px solid #fcd34d;background:#fffbeb;border-radius:12px;color:#78350f;font-size:.86rem;margin:12px 0}
+        .success-box{padding:14px 16px;border:1px solid #a7f3d0;background:#ecfdf5;border-radius:12px;color:#065f46;font-size:.86rem;margin:12px 0}
+        .chart-wrap{height:260px;position:relative;margin-top:15px}
+        .chart-wrap canvas{width:100%;height:100%;border:1px solid var(--border);border-radius:12px}
+        .inline-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+        .muted{color:var(--text-secondary);font-size:.84rem}
+        @media(max-width:600px){.dose-card{align-items:flex-start;flex-wrap:wrap}.dose-actions-group{flex-wrap:wrap}.form-row{flex-direction:column;gap:0}}
+
+    </style>
+</head>
+<body>
+    <section id="auth-screen" class="auth-screen">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <div class="brand-icon">💊</div>
+                <h2>Dose Certa</h2>
+                <p>Entre para gerenciar seus medicamentos com segurança.</p>
+            </div>
+            <div class="auth-switch">
+                <button type="button" id="login-tab" class="active" onclick="showAuthForm('login')">Entrar</button>
+                <button type="button" id="register-tab" onclick="showAuthForm('register')">Criar conta</button>
+            </div>
+            <form id="login-form" onsubmit="loginUser(event)">
+                <div class="form-group">
+                    <label for="login-email">E-mail</label>
+                    <input class="form-control" type="email" id="login-email" placeholder="seu@email.com" autocomplete="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Senha</label>
+                    <input class="form-control" type="password" id="login-password" placeholder="Digite sua senha" autocomplete="current-password" required>
+                </div>
+                <p id="login-error" class="auth-error" aria-live="polite"></p>
+                <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Entrar na minha conta</button>
+            </form>
+            <form id="register-form" onsubmit="registerUser(event)" style="display:none;">
+                <div class="form-group">
+                    <label for="register-name">Nome completo</label>
+                    <input class="form-control" type="text" id="register-name" placeholder="Seu nome" autocomplete="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">E-mail</label>
+                    <input class="form-control" type="email" id="register-email" placeholder="seu@email.com" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Criar senha</label>
+                    <input class="form-control" type="password" id="register-password" placeholder="Mínimo de 6 caracteres" minlength="6" autocomplete="new-password" required>
+                </div>
+                <p id="register-error" class="auth-error" aria-live="polite"></p>
+                <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Criar minha conta</button>
+            </form>
+            <p class="auth-note">Projeto acadêmico • Seus dados deste protótipo ficam salvos neste navegador.</p>
+        </div>
+    </section>
+
+    <div id="app-shell" style="display:none;">
+    <header>
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-icon">💊</div>
+                <div class="brand-text">
+                    <h1>Dose Certa</h1>
+                    <p>Gestão Inteligente & Notificação de Remédios</p>
+                </div>
+            </div>
+            <div class="user-area">
+                <span class="user-name" id="logged-user-name"></span>
+                <button class="btn btn-secondary btn-sm" type="button" onclick="logoutUser()">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="academic-card">
+            <div class="academic-icon">🎓</div>
+            <div class="academic-text">
+                <strong>Projeto Acadêmico Dose Certa</strong>
+                <p>Desenvolvido para resolver o esquecimento de medicamentos na rotina corrida. Notificação prática via WhatsApp e localização inteligente de remédios mais baratos próximos.</p>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'agenda')">
+                📋 Agenda do Dia
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'medicamentos')">
+                💊 Meus Remédios
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'farmacias')">
+                📍 Buscar Farmácias
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'anunciantes')">
+                📢 Anunciantes (B2B)
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'historico')">🧾 Histórico</button>
+            <button class="tab-btn" onclick="switchTab(event, 'saude')">❤️ Diário de Saúde</button>
+            <button class="tab-btn" onclick="switchTab(event, 'relatorios')">📊 Relatórios</button>
+            <button class="tab-btn" onclick="switchTab(event, 'apoio')">👨‍👩‍👧 Rede de Apoio</button>
+        </div>
+
+        <!-- TAB 1: AGENDA DO DIA -->
+        <div id="tab-agenda" class="tab-panel active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Horários de Hoje</div>
+                    <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ Adicionar Remédio</button>
+                </div>
+
+                <div class="progress-box">
+                    <div class="progress-info">
+                        <span>Progresso das Doses de Hoje</span>
+                        <span id="progress-text">0 de 0 tomados</span>
+                    </div>
+                    <div class="progress-track">
+                        <div id="progress-bar" class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div id="agenda-list"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📲 Configurar Lembrete via WhatsApp</div>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 14px;">
+                    Defina o número que receberá as mensagens de lembrete (seu próprio número ou de um familiar/cuidador).
+                </p>
+                <div class="warning-box">Os alarmes desta versão funcionam enquanto o Dose Certa estiver aberto no navegador. Permita notificações e mantenha esta página ativa. Para alarmes confiáveis com o navegador fechado, é necessário aplicativo/servidor com notificações push.</div>
+                <button class="btn btn-secondary" type="button" onclick="enableNotifications()">🔔 Ativar notificações do navegador</button>
+                <div class="form-row" style="margin-top:14px">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label for="whatsapp-num" style="display:none;">Número do WhatsApp</label>
+                        <input type="tel" id="whatsapp-num" class="form-control" placeholder="Ex: 5511999998888" value="5511999998888">
+                    </div>
+                    <button class="btn btn-secondary" onclick="saveWhatsappNumber()">Salvar Número</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: MEUS MEDICAMENTOS -->
+        <div id="tab-medicamentos" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Cadastro e Gestão de Medicamentos</div>
+                    <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ Cadastrar Remédio</button>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 18px;">
+                    Acompanhe o estoque restante de cada frasco ou caixa de remédio e mantenha seu tratamento em dia.
+                </p>
+                <div id="medicamentos-list"></div>
+            </div>
+        </div>
+
+        <!-- TAB 3: BUSCAR FARMÁCIAS -->
+        <div id="tab-farmacias" class="tab-panel">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📍 Localizar Medicamentos em Farmácias Próximas</div>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
+                    Informe seu CEP e o número da casa para abrir uma busca de farmácias próximas diretamente no Google Maps.
+                </p>
+
+                <div class="form-row" style="margin-bottom: 14px;">
+                    <div class="form-group" style="flex: 2; margin-bottom: 0;">
+                        <label for="search-med" style="display:none;">Nome do medicamento</label>
+                        <input type="text" id="search-med" class="form-control" placeholder="Digite o nome (ex: Paracetamol, Omeprazol, Losartana)..." oninput="searchPharmacies()">
+                    </div>
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label for="search-radius" style="display:none;">Raio</label>
+                        <select id="search-radius" class="form-control" onchange="searchPharmacies()">
+                            <option value="1">Até 1 km</option>
+                            <option value="3" selected>Até 3 km</option>
+                            <option value="5">Até 5 km</option>
+                            <option value="10">Até 10 km</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" style="gap:12px;align-items:flex-end;margin-bottom:12px;">
+                    <div class="form-group" style="flex:1;min-width:180px;margin-bottom:0;">
+                        <label for="pharmacy-cep">CEP</label>
+                        <input type="text" id="pharmacy-cep" class="form-control"
+                               placeholder="58046-600" inputmode="numeric" autocomplete="postal-code"
+                               maxlength="9" oninput="formatPharmacyCEP(this)"
+                               onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('pharmacy-house-number').focus();}">
+                    </div>
+                    <div class="form-group" style="flex:1;min-width:140px;margin-bottom:0;">
+                        <label for="pharmacy-house-number">Número da casa</label>
+                        <input type="text" id="pharmacy-house-number" class="form-control"
+                               placeholder="Ex.: 999" inputmode="numeric" autocomplete="address-line2"
+                               maxlength="20"
+                               onkeydown="if(event.key==='Enter'){event.preventDefault();searchPharmaciesByCEP();}">
+                    </div>
+                </div>
+                <small class="muted" style="display:block;margin-bottom:12px;">Informe o CEP (ex.: 58046-600) e o número da casa (ex.: 999). O número ajuda a posicionar a busca mais perto do endereço informado.</small>
+<div class="form-row" style="align-items:center;margin-bottom:14px;">
+                    <button class="btn btn-primary" type="button" onclick="searchPharmaciesByCEP()">🔎 Buscar farmácias próximas</button>
+                    <span id="location-status" class="muted" aria-live="polite">Digite o CEP e o número da casa para pesquisar no Google Maps.</span>
+                </div>
+                <p class="muted" style="margin-bottom:14px;">O CEP será consultado no ViaCEP. Ao abrir o Google Maps, o endereço informado será preenchido automaticamente como ponto de partida para encontrar farmácias próximas.</p>
+
+                <div id="micro-ad-container"></div>
+                <div id="pharmacy-list"></div>
+            </div>
+        </div>
+
+        <!-- TAB 4: ANUNCIANTES -->
+        <div id="tab-anunciantes" class="tab-panel">
+            <div class="card">
+                <div class="card-header"><div class="card-title">📢 Anúncios Dose Certa</div><span id="ads-role-label" class="pill-tag">Ofertas</span></div>
+                <p class="muted" style="margin-bottom:18px;">Confira as ofertas e campanhas publicadas pela administração do Dose Certa.</p>
+                <section id="admin-ad-tools" style="display:none;">
+                    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:var(--radius-md);padding:20px;margin-bottom:24px;">
+                        <h4 style="color:var(--primary-dark);font-weight:800;font-size:1.05rem;margin-bottom:12px;">Criar novo anúncio</h4>
+                        <form id="form-ad" onsubmit="createMicroAd(event)">
+                            <div class="form-group"><label for="ad-med-name">Medicamento / público-alvo</label><input type="text" id="ad-med-name" class="form-control" placeholder="Ex.: Omeprazol ou cuidados com a saúde" required></div>
+                            <div class="form-group"><label for="ad-company">Empresa anunciante</label><input type="text" id="ad-company" class="form-control" placeholder="Ex.: Drogaria Vita" required></div>
+                            <div class="form-row"><div class="form-group"><label for="ad-price">Preço promocional (R$)</label><input type="number" min="0" step="0.01" id="ad-price" class="form-control" placeholder="9.90"></div><div class="form-group"><label for="ad-discount">Desconto (%)</label><input type="number" min="0" max="100" id="ad-discount" class="form-control" placeholder="30"></div></div>
+                            <div class="form-group"><label for="ad-msg">Texto do anúncio</label><textarea id="ad-msg" class="form-control" rows="3" placeholder="Descreva a oferta, condições e contato" required></textarea></div>
+                            <div class="form-group"><label for="ad-link">Link (opcional)</label><input type="url" id="ad-link" class="form-control" placeholder="https://..."></div>
+                            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">🚀 Publicar anúncio para todos os usuários</button>
+                        </form>
+                    </div>
+                    <div class="card-title" style="margin-bottom:12px;">Gerenciar anúncios publicados</div>
+                </section>
+                <div id="ads-active-list"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5: HISTÓRICO DE ADESÃO -->
+        <div id="tab-historico" class="tab-panel">
+            <div class="card">
+                <div class="card-header"><div class="card-title">🧾 Histórico de uso dos medicamentos</div></div>
+                <p class="muted">Registros de doses tomadas, adiadas ou ignoradas. O histórico é salvo nesta conta e neste navegador.</p>
+                <div id="adherence-summary" class="feature-grid"></div>
+                <div id="adherence-history"></div>
+            </div>
+        </div>
+
+        <!-- TAB 6: DIÁRIO DE SAÚDE -->
+        <div id="tab-saude" class="tab-panel">
+            <div class="card">
+                <div class="card-header"><div class="card-title">❤️ Diário de Saúde e Sintomas</div></div>
+                <form id="health-form" onsubmit="saveHealthEntry(event)">
+                    <div class="inline-fields">
+                        <div class="form-group"><label for="health-date">Data e hora</label><input class="form-control" id="health-date" type="datetime-local" required></div>
+                        <div class="form-group"><label for="health-pressure">Pressão arterial (mmHg)</label><input class="form-control" id="health-pressure" placeholder="Ex.: 120/80"></div>
+                        <div class="form-group"><label for="health-glucose">Glicemia (mg/dL)</label><input class="form-control" id="health-glucose" type="number" min="0" step="0.1"></div>
+                        <div class="form-group"><label for="health-weight">Peso (kg)</label><input class="form-control" id="health-weight" type="number" min="0" step="0.1"></div>
+                        <div class="form-group"><label for="health-temp">Temperatura (°C)</label><input class="form-control" id="health-temp" type="number" min="25" max="45" step="0.1"></div>
+                        <div class="form-group"><label for="health-mood">Humor</label><select class="form-control" id="health-mood"><option value="">Selecione</option><option>Ótimo</option><option>Bem</option><option>Regular</option><option>Triste</option><option>Ansioso</option></select></div>
+                        <div class="form-group"><label for="health-pain">Dor (0 a 10)</label><input class="form-control" id="health-pain" type="number" min="0" max="10"></div>
+                    </div>
+                    <div class="form-group"><label for="health-symptoms">Sintomas e observações</label><textarea class="form-control" id="health-symptoms" rows="3" placeholder="Descreva como está se sentindo..."></textarea></div>
+                    <button class="btn btn-primary" type="submit">Salvar registro</button>
+                </form>
+                <div id="health-history" style="margin-top:20px"></div>
+            </div>
+        </div>
+
+        <!-- TAB 7: RELATÓRIOS -->
+        <div id="tab-relatorios" class="tab-panel">
+            <div class="card">
+                <div class="card-header"><div class="card-title">📊 Relatórios para consulta</div></div>
+                <p class="muted">Gere um resumo imprimível com adesão, medicamentos e diário de saúde. Na janela de impressão, escolha “Salvar como PDF”.</p>
+                <div class="feature-grid" id="report-stats"></div>
+                <div class="chart-wrap"><canvas id="adherence-chart" width="900" height="260" aria-label="Gráfico de adesão"></canvas></div>
+                <div class="chart-wrap"><canvas id="health-chart" width="900" height="260" aria-label="Gráfico de medições"></canvas></div>
+                <button class="btn btn-primary" onclick="generateMedicalReport()">📄 Gerar relatório / Salvar em PDF</button>
+            </div>
+        </div>
+
+        <!-- TAB 8: REDE DE APOIO -->
+        <div id="tab-apoio" class="tab-panel">
+            <div class="card">
+                <div class="card-header"><div class="card-title">👨‍👩‍👧 Rede de Apoio / Familiares</div></div>
+                <p class="muted">Cadastre um contato de confiança. O protótipo prepara alertas pelo WhatsApp quando uma dose for ignorada ou permanecer sem resposta.</p>
+                <div class="form-group"><label for="caregiver-name">Nome do familiar/cuidador</label><input class="form-control" id="caregiver-name" placeholder="Nome do contato"></div>
+                <div class="form-group"><label for="caregiver-phone">WhatsApp com DDI e DDD</label><input class="form-control" id="caregiver-phone" type="tel" placeholder="Ex.: 5583999999999"></div>
+                <button class="btn btn-primary" onclick="saveCaregiver()">Salvar contato</button>
+                <div id="caregiver-status" class="success-box" style="display:none"></div>
+                <div class="warning-box">O envio automático em segundo plano exige um servidor e integração oficial com WhatsApp. Nesta versão, o aplicativo abre uma mensagem pronta quando você registra uma dose como ignorada.</div>
+            </div>
+        </div>
+
+    <!-- MODAL -->
+    <div id="add-modal" class="modal-overlay">
+        <div class="modal">
+            <div class="card-header" style="margin-bottom:20px;">
+                <div class="card-title">Cadastrar Novo Medicamento</div>
+                <button style="border:none; background:none; font-size:1.4rem; cursor:pointer;" onclick="closeAddModal()">✕</button>
+            </div>
+            <form onsubmit="saveNewMedicament(event)">
+                <div class="form-group">
+                    <label for="med-name">Nome do Medicamento</label>
+                    <input type="text" id="med-name" class="form-control" placeholder="Ex: Amoxicilina 500mg" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="med-dose">Dosagem / Qtd</label>
+                        <input type="text" id="med-dose" class="form-control" placeholder="Ex: 1 comprimido" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="med-stock">Estoque Inicial</label>
+                        <input type="number" id="med-stock" class="form-control" placeholder="Ex: 20" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="med-time">Horário da Dose</label>
+                        <input type="time" id="med-time" class="form-control" value="08:00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="med-freq">Frequência</label>
+                        <select id="med-freq" class="form-control">
+                            <option value="8">A cada 8 horas (3x/dia)</option>
+                            <option value="12">A cada 12 horas (2x/dia)</option>
+                            <option value="24" selected>1 vez ao dia</option>
+                            <option value="6">A cada 6 horas (4x/dia)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="med-type">Tipo</label>
+                        <select id="med-type" class="form-control">
+                            <option>Comprimido</option><option>Cápsula</option><option>Injeção</option><option>Gotas</option><option>Vitamina</option><option>Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="med-low-stock">Avisar quando restarem</label>
+                        <input type="number" id="med-low-stock" class="form-control" min="0" value="5">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label for="med-color">Cor</label><input type="text" id="med-color" class="form-control" placeholder="Ex.: branco"></div>
+                    <div class="form-group"><label for="med-shape">Formato</label><input type="text" id="med-shape" class="form-control" placeholder="Ex.: redondo"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label for="med-package">Embalagem / aparência</label><input type="text" id="med-package" class="form-control" placeholder="Ex.: cartela azul"></div>
+                    <div class="form-group"><label for="med-prescription">Renovar receita em</label><input type="date" id="med-prescription" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="med-notes">Observações</label>
+                    <input type="text" id="med-notes" class="form-control" placeholder="Ex: Tomar com água após refeição">
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:24px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Medicamento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Dose Certa System</strong> • Projeto Acadêmico de Alta Eficiência</p>
+        <p>Notificação simplificada via WhatsApp • Localizador de Farmácias Integrado</p>
+    </footer>
+    </div><!-- /app-shell -->
+
+    <script>
+        const initialMeds = [
+            { id: 1, name: "Paracetamol 750mg", dose: "1 comprimido", stock: 14, time: "08:00", freq: 8, notes: "Tomar em caso de dor ou febre", taken: true },
+            { id: 2, name: "Losartana 50mg", dose: "1 comprimido", stock: 28, time: "12:00", freq: 24, notes: "Pressão arterial - Jejum ou após refeição", taken: false },
+            { id: 3, name: "Omeprazol 20mg", dose: "1 cápsula", stock: 4, time: "20:00", freq: 24, notes: "Tomar antes da janta", taken: false }
+        ];
+
+        const initialPharmacies = [
+            { id: 101, name: "Drogaria São Paulo", address: "Av. Paulista, 1100", distance: 0.4, med: "Paracetamol 750mg", price: 9.90, stockStatus: "Em estoque", phone: "5511988887777" },
+            { id: 102, name: "Farmácia Preço Popular", address: "Rua Augusta, 450", distance: 0.8, med: "Paracetamol 750mg", price: 7.50, stockStatus: "Poucas Unidades", phone: "5511977776666" },
+            { id: 103, name: "Drogasil", address: "Alameda Santos, 800", distance: 1.2, med: "Losartana 50mg", price: 12.90, stockStatus: "Em estoque", phone: "5511966665555" },
+            { id: 104, name: "Drogaria Farmavida", address: "Rua Bela Cintra, 200", distance: 1.5, med: "Omeprazol 20mg", price: 14.20, stockStatus: "Em estoque", phone: "5511955554444" }
+        ];
+
+        const initialAds = [
+            { id: 201, medName: "Omeprazol", company: "Medley Farmacêutica", price: 11.90, discount: 30, msg: "Desconto especial de 30% na Drogaria Farmavida! Apresente este cupom no balcão." },
+            { id: 202, medName: "Paracetamol", company: "EMS Genéricos", price: 6.90, discount: 20, msg: "Super oferta de Paracetamol 750mg c/ 20 comprimidos. Entregas grátis via WhatsApp!" }
+        ];
+
+        // Dados separados por conta (protótipo local, sem servidor).
+        let currentUser = null;
+        let myMeds = [];
+        let myAds = [];
+        let sharedAds = [];
+        const ADMIN_CREDENTIALS = { email: 'admin@dosecerta.com', password: 'DoseCerta@2026' };
+        const SHARED_ADS_KEY = 'dose_certa_shared_ads';
+        let userPhone = "5511999998888";
+        let adherenceHistory = [];
+        let healthEntries = [];
+        let caregiver = { name: "", phone: "" };
+        let reminderTimer = null;
+        let alertedSlots = new Set();
+        let userCoordinates = null;
+        let nearbyPharmacies = [];
+        let pharmacySearchInProgress = false;
+        let pharmacySearchAddress = "";
+        let pharmacyCoordinates = null;
+
+        function userStorageKey(type) {
+            return `dose_certa_${type}_${currentUser.id}`;
+        }
+
+        function loadUserData() {
+            myMeds = JSON.parse(localStorage.getItem(userStorageKey('meds'))) || JSON.parse(JSON.stringify(initialMeds));
+            sharedAds = JSON.parse(localStorage.getItem(SHARED_ADS_KEY)) || JSON.parse(JSON.stringify(initialAds));
+            myAds = sharedAds;
+            userPhone = localStorage.getItem(userStorageKey('phone')) || "5511999998888";
+            adherenceHistory = JSON.parse(localStorage.getItem(userStorageKey('history')) || '[]');
+            healthEntries = JSON.parse(localStorage.getItem(userStorageKey('health')) || '[]');
+            caregiver = JSON.parse(localStorage.getItem(userStorageKey('caregiver')) || '{"name":"","phone":""}');
+            document.getElementById('whatsapp-num').value = userPhone;
+            document.getElementById('caregiver-name').value = caregiver.name || '';
+            document.getElementById('caregiver-phone').value = caregiver.phone || '';
+            saveToStorage();
+            startReminderMonitor();
+            renderHistory();
+            renderHealthHistory();
+            renderAgenda();
+            renderMedicamentos();
+            renderActiveAds();
+        }
+
+        function saveToStorage() {
+            if (!currentUser) return;
+            localStorage.setItem(userStorageKey('meds'), JSON.stringify(myMeds));
+            if (currentUser?.role === 'admin') { sharedAds = myAds; localStorage.setItem(SHARED_ADS_KEY, JSON.stringify(sharedAds)); }
+            localStorage.setItem(userStorageKey('phone'), userPhone);
+            localStorage.setItem(userStorageKey('history'), JSON.stringify(adherenceHistory));
+            localStorage.setItem(userStorageKey('health'), JSON.stringify(healthEntries));
+            localStorage.setItem(userStorageKey('caregiver'), JSON.stringify(caregiver));
+        }
+
+        function getUsers() {
+            return JSON.parse(localStorage.getItem('dose_certa_users') || '[]');
+        }
+
+        function showAuthForm(mode) {
+            document.getElementById('login-form').style.display = mode === 'login' ? 'block' : 'none';
+            document.getElementById('register-form').style.display = mode === 'register' ? 'block' : 'none';
+            ['login','register'].forEach(x => document.getElementById(x+'-tab').classList.toggle('active', mode === x));
+            ['login','register'].forEach(x => { const el=document.getElementById(x+'-error'); if(el) el.textContent=''; });
+        }
+
+        function registerUser(event) {
+            event.preventDefault();
+            const name = document.getElementById('register-name').value.trim();
+            const email = document.getElementById('register-email').value.trim().toLowerCase();
+            const password = document.getElementById('register-password').value;
+            const users = getUsers();
+
+            if (users.some(user => user.email === email)) {
+                document.getElementById('register-error').textContent = 'Este e-mail já possui cadastro.';
+                return;
+            }
+
+            const user = { id: Date.now().toString(), name, email, password };
+            users.push(user);
+            localStorage.setItem('dose_certa_users', JSON.stringify(users));
+            document.getElementById('register-form').reset();
+            startSession(user);
+        }
+
+        function loginUser(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+
+            // Todos entram pelo mesmo formulário. A conta administrativa é
+            // reconhecida internamente, sem botão ou etapa especial no login.
+            const regularUser = getUsers().find(item => item.email === email && item.password === password);
+            const user = regularUser || (
+                email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password
+                    ? { id: 'dose-certa-admin', name: 'Administrador', email, role: 'admin' }
+                    : null
+            );
+
+            if (!user) {
+                document.getElementById('login-error').textContent = 'E-mail ou senha incorretos.';
+                return;
+            }
+            document.getElementById('login-form').reset();
+            startSession(user);
+        }
+
+        function startSession(user) {
+            currentUser = user;
+            sessionStorage.setItem('dose_certa_session', user.id);
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('app-shell').style.display = 'block';
+            document.getElementById('logged-user-name').textContent = user.role === 'admin' ? '🔐 Administrador' : `Olá, ${user.name}`;
+            const adminTab = document.getElementById('admin-ad-tools');
+            if (adminTab) adminTab.style.display = user.role === 'admin' ? 'block' : 'none';
+            const roleLabel = document.getElementById('ads-role-label');
+            if (roleLabel) roleLabel.textContent = user.role === 'admin' ? 'Painel administrativo' : 'Ofertas para você';
+            loadUserData();
+        }
+
+        function logoutUser() {
+            sessionStorage.removeItem('dose_certa_session');
+            currentUser = null;
+            document.getElementById('app-shell').style.display = 'none';
+            document.getElementById('auth-screen').style.display = 'flex';
+            showAuthForm('login');
+        }
+
+        function initializeAuth() {
+            const sessionId = sessionStorage.getItem('dose_certa_session');
+            const user = sessionId === 'dose-certa-admin' ? { id: 'dose-certa-admin', name: 'Administrador', email: ADMIN_CREDENTIALS.email, role: 'admin' } : getUsers().find(item => item.id === sessionId);
+            if (user) startSession(user);
+            else {
+                document.getElementById('auth-screen').style.display = 'flex';
+                document.getElementById('app-shell').style.display = 'none';
+            }
+        }
+
+        function switchTab(e, tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+
+            e.currentTarget.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+
+            if (tabName === 'agenda') renderAgenda();
+            if (tabName === 'medicamentos') renderMedicamentos();
+            if (tabName === 'farmacias') searchPharmacies();
+            if (tabName === 'anunciantes') renderActiveAds();
+            if (tabName === 'historico') renderHistory();
+            if (tabName === 'saude') renderHealthHistory();
+            if (tabName === 'relatorios') renderReports();
+            if (tabName === 'apoio') loadCaregiver();
+        }
+
+        function renderAgenda() {
+            const list = document.getElementById('agenda-list');
+            list.innerHTML = '';
+            const today = new Date().toISOString().slice(0,10);
+            const todayRecords = adherenceHistory.filter(x => x.date.slice(0,10) === today);
+            let takenCount = todayRecords.filter(x => x.status === 'tomado').length;
+            const scheduled = myMeds.length;
+
+            myMeds.forEach(med => {
+                const last = todayRecords.filter(x => x.medId === med.id).slice(-1)[0];
+                const status = last ? last.status : 'pendente';
+                const item = document.createElement('div');
+                item.className = `dose-card ${status === 'tomado' ? 'taken' : ''}`;
+                const visual = med.color || med.shape || med.package ? `${med.color || 'cor não informada'} • ${med.shape || 'formato não informado'} • ${med.package || 'embalagem não informada'}` : 'Identificação visual não cadastrada';
+                item.innerHTML = `
+                    <div class="dose-time-badge">${med.time}</div>
+                    <div class="dose-details">
+                        <h4>${escapeHTML(med.name)} (${escapeHTML(med.dose)})</h4>
+                        <p>📌 ${escapeHTML(med.notes || 'Sem observações')} • Estoque: <strong>${med.stock} un.</strong></p>
+                        <p class="muted">Visual: ${escapeHTML(visual)} • ${escapeHTML(med.type || 'Medicamento')}</p>
+                        <div class="dose-status-actions">
+                            <button class="btn btn-primary btn-sm" onclick="recordDose(${med.id}, 'tomado')">✓ Tomei</button>
+                            <button class="btn btn-secondary btn-sm" onclick="snoozeDose(${med.id})">⏰ Adiar 10 min</button>
+                            <button class="btn btn-danger btn-sm" onclick="recordDose(${med.id}, 'ignorado')">✕ Ignorar</button>
+                        </div>
+                    </div>`;
+                list.appendChild(item);
+            });
+            const total = myMeds.length;
+            const pct = total > 0 ? Math.round((takenCount / total) * 100) : 0;
+            document.getElementById('progress-text').innerText = `${takenCount} de ${total} doses registradas como tomadas (${pct}%)`;
+            document.getElementById('progress-bar').style.width = pct + '%';
+        }
+
+        function recordDose(id, status, scheduledTime = null) {
+            const med = myMeds.find(m => m.id === id);
+            if (!med) return;
+            const now = new Date();
+            adherenceHistory.push({
+                id: Date.now() + Math.random(), medId: med.id, medName: med.name,
+                dose: med.dose, status, date: now.toISOString(),
+                scheduledTime: scheduledTime || med.time
+            });
+            if (status === 'tomado' && med.stock > 0) med.stock -= 1;
+            if (status === 'ignorado') alertCaregiver(med);
+            saveToStorage();
+            renderAgenda();
+            renderMedicamentos();
+            renderHistory();
+        }
+
+        function toggleTaken(id) { recordDose(id, 'tomado'); }
+
+        function snoozeDose(id) {
+            const med = myMeds.find(m => m.id === id);
+            if (!med) return;
+            const snoozeAt = Date.now() + 10 * 60 * 1000;
+            setTimeout(() => {
+                if (!currentUser) return;
+                notifyUser(`Dose Certa: ${med.name}`, `Lembrete adiado: ${med.dose}. Confira a orientação da sua prescrição.`);
+            }, 10 * 60 * 1000);
+            adherenceHistory.push({ id: Date.now(), medId: med.id, medName: med.name, dose: med.dose, status: 'adiado', date: new Date().toISOString(), scheduledTime: med.time, snoozeUntil: new Date(snoozeAt).toISOString() });
+            saveToStorage();
+            renderAgenda();
+            renderHistory();
+        }
+
+        function sendWhatsappNotification(medName, dose, time) {
+            const msg = `*Lembrete Dose Certa* 📲%0A%0AEstá na hora de tomar seu medicamento:%0A💊 *${medName}* (${dose})%0A⏰ *Horário:* ${time}%0A%0ANão se esqueça de marcar como tomado no aplicativo Dose Certa!`;
+            const url = `https://api.whatsapp.com/send?phone=${userPhone}&text=${msg}`;
+            window.open(url, '_blank');
+        }
+
+        function saveWhatsappNumber() {
+            const input = document.getElementById('whatsapp-num').value.trim();
+            if (input) {
+                userPhone = input;
+                saveToStorage();
+                alert('Número do WhatsApp atualizado com sucesso!');
+            }
+        }
+
+        function renderMedicamentos() {
+            const list = document.getElementById('medicamentos-list');
+            list.innerHTML = '';
+            myMeds.forEach(med => {
+                const threshold = Number(med.lowStock ?? 5);
+                let stockClass = 'stock-ok', stockLabel = 'Estoque Normal';
+                if (med.stock <= 0) { stockClass = 'stock-out'; stockLabel = 'Esgotado'; }
+                else if (med.stock <= threshold) { stockClass = 'stock-low'; stockLabel = 'Estoque Baixo'; }
+                const rx = med.prescriptionDate ? `Receita até ${formatDate(med.prescriptionDate)}` : 'Receita sem data cadastrada';
+                const item = document.createElement('div');
+                item.className = 'dose-card';
+                item.innerHTML = `
+                    <div class="dose-details">
+                        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;">
+                            <span class="visual-preview" style="background:${safeColor(med.color)}">💊</span>
+                            <h4>${escapeHTML(med.name)}</h4>
+                            <span class="stock-chip ${stockClass}">${stockLabel}</span>
+                        </div>
+                        <p>Tipo: ${escapeHTML(med.type || 'Não informado')} • Dose: ${escapeHTML(med.dose)} • A cada ${med.freq}h • ${med.time}</p>
+                        <p>Estoque: <strong>${med.stock} unidades</strong> • ${rx}</p>
+                        <p class="muted">Cor: ${escapeHTML(med.color || '—')} • Formato: ${escapeHTML(med.shape || '—')} • Embalagem: ${escapeHTML(med.package || '—')}</p>
+                        ${med.stock <= threshold ? '<p style="color:#b45309;font-weight:700">⚠ Estoque acabando: considere verificar a reposição.</p>' : ''}
+                        ${med.prescriptionDate && new Date(med.prescriptionDate+'T00:00:00') <= new Date(Date.now()+7*86400000) ? '<p style="color:#b91c1c;font-weight:700">⚠ Verifique a renovação da receita.</p>' : ''}
+                    </div>
+                    <div class="dose-actions-group">
+                        <button class="btn btn-secondary btn-sm" onclick="addStock(${med.id})">+ Repor</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteMed(${med.id})">Excluir</button>
+                    </div>`;
+                list.appendChild(item);
+            });
+            checkStockAlerts();
+        }
+
+        function addStock(id) {
+            const med = myMeds.find(m => m.id === id);
+            if (med) {
+                const qtd = prompt("Quantas unidades deseja adicionar ao estoque?", "10");
+                if (qtd && !isNaN(qtd)) {
+                    med.stock += parseInt(qtd);
+                    saveToStorage();
+                    renderMedicamentos();
+                }
+            }
+        }
+
+        function deleteMed(id) {
+            if (confirm("Deseja realmente remover este medicamento da lista?")) {
+                myMeds = myMeds.filter(m => m.id !== id);
+                saveToStorage();
+                renderMedicamentos();
+                renderAgenda();
+            }
+        }
+
+        function openAddModal() {
+            document.getElementById('add-modal').classList.add('open');
+        }
+
+        function closeAddModal() {
+            document.getElementById('add-modal').classList.remove('open');
+        }
+
+        function saveNewMedicament(e) {
+            e.preventDefault();
+            const name = document.getElementById('med-name').value.trim();
+            const dose = document.getElementById('med-dose').value.trim();
+            const stock = parseInt(document.getElementById('med-stock').value) || 0;
+            const time = document.getElementById('med-time').value;
+            const freq = parseInt(document.getElementById('med-freq').value);
+            const notes = document.getElementById('med-notes').value.trim();
+            const med = {
+                id: Date.now(), name, dose, stock, time, freq, notes,
+                type: document.getElementById('med-type').value,
+                lowStock: parseInt(document.getElementById('med-low-stock').value) || 5,
+                color: document.getElementById('med-color').value.trim(),
+                shape: document.getElementById('med-shape').value.trim(),
+                package: document.getElementById('med-package').value.trim(),
+                prescriptionDate: document.getElementById('med-prescription').value
+            };
+            myMeds.push(med);
+            saveToStorage();
+            closeAddModal();
+            e.target.reset();
+            renderAgenda();
+            renderMedicamentos();
+            checkPossibleInteractions();
+        }
+
+        function searchPharmacies() {
+            const medicine = document.getElementById('search-med').value.trim();
+            const radius = Number(document.getElementById('search-radius').value);
+            const list = document.getElementById('pharmacy-list');
+            const adContainer = document.getElementById('micro-ad-container');
+
+            adContainer.innerHTML = '';
+            if (medicine.length >= 2) {
+                const matchedAd = (JSON.parse(localStorage.getItem(SHARED_ADS_KEY) || 'null') || sharedAds || initialAds).find(ad => ad.medName.toLowerCase().includes(medicine.toLowerCase()));
+                if (matchedAd) {
+                    const ad = document.createElement('div');
+                    ad.className = 'micro-ad-box';
+                    ad.innerHTML = `<span class="ad-tag">Oferta cadastrada</span>
+                        <h5>${escapeHTML(matchedAd.company)} • ${escapeHTML(matchedAd.medName)}</h5>
+                        <p>${escapeHTML(matchedAd.msg)}</p>
+                        ${matchedAd.price == null || matchedAd.price === '' ? '' : `<span class="price-highlight">R$ ${Number(matchedAd.price).toFixed(2)}</span>`}`;
+                    adContainer.appendChild(ad);
+                }
+            }
+
+            if (!pharmacySearchAddress) {
+                list.innerHTML = '<div class="warning-box">Informe o CEP e o número da casa para localizar farmácias próximas.</div>';
+                return;
+            }
+
+            // A busca externa é iniciada após o endereço ser geocodificado.
+            fetchNearbyPharmacies();
+        }
+
+        function calculateDistanceKm(lat1, lon1, lat2, lon2) {
+            const toRad = value => value * Math.PI / 180;
+            const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
+            const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+            return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        }
+
+        function formatPharmacyCEP(input) {
+            let digits = input.value.replace(/\D/g, '').slice(0, 8);
+            input.value = digits.length > 5
+                ? digits.slice(0, 5) + '-' + digits.slice(5)
+                : digits;
+        }
+
+        async function searchPharmaciesByCEP() {
+            const cepInput = document.getElementById('pharmacy-cep');
+            const numberInput = document.getElementById('pharmacy-house-number');
+            const status = document.getElementById('location-status');
+            const list = document.getElementById('pharmacy-list');
+            const cep = cepInput.value.replace(/\D/g, '');
+            const houseNumber = numberInput.value.trim();
+
+            if (!/^\d{8}$/.test(cep)) {
+                status.textContent = 'Digite um CEP válido com 8 números.';
+                list.innerHTML = '<div class="warning-box">Confira o CEP informado. Exemplo: 58046-600.</div>';
+                cepInput.focus();
+                return;
+            }
+
+            if (!houseNumber) {
+                status.textContent = 'Informe também o número da casa.';
+                list.innerHTML = '<div class="warning-box">Informe o número do imóvel. Exemplo: 999.</div>';
+                numberInput.focus();
+                return;
+            }
+
+            status.textContent = 'Consultando o CEP...';
+            list.innerHTML = '<p class="muted">Consultando o endereço no ViaCEP. Aguarde...</p>';
+            pharmacySearchAddress = '';
+            pharmacyCoordinates = null;
+
+            try {
+                const cepResponse = await fetch('https://viacep.com.br/ws/' + cep + '/json/');
+                if (!cepResponse.ok) throw new Error('Não foi possível consultar o serviço de CEP. Tente novamente.');
+                const cepData = await cepResponse.json();
+
+                if (cepData.erro) {
+                    throw new Error('CEP não encontrado. Confira os oito números digitados.');
+                }
+
+                const addressParts = [
+                    cepData.logradouro,
+                    houseNumber,
+                    cepData.bairro,
+                    cepData.localidade,
+                    cepData.uf,
+                    'Brasil'
+                ].filter(Boolean);
+
+                pharmacySearchAddress = addressParts.join(', ');
+                if (!cepData.logradouro) {
+                    pharmacySearchAddress = [
+                        `CEP ${cep}`,
+                        `número ${houseNumber}`,
+                        cepData.bairro,
+                        cepData.localidade,
+                        cepData.uf,
+                        'Brasil'
+                    ].filter(Boolean).join(', ');
+                }
+
+                status.textContent = 'Endereço encontrado. Procurando farmácias no raio selecionado...';
+                await fetchNearbyPharmacies();
+            } catch (error) {
+                status.textContent = 'Não foi possível consultar o endereço.';
+                list.innerHTML = `<div class="warning-box">${escapeHTML(error.message)}</div>`;
+            }
+        }
+
+        async function fetchNearbyPharmacies() {
+            const list = document.getElementById('pharmacy-list');
+            const status = document.getElementById('location-status');
+            const radiusKm = Number(document.getElementById('search-radius').value);
+
+            if (!pharmacySearchAddress) {
+                status.textContent = 'Informe o CEP e o número da casa primeiro.';
+                list.innerHTML = '<div class="warning-box">Informe o endereço para abrir a busca no Google Maps.</div>';
+                return;
+            }
+
+            // O Google Maps abre a tela de rotas com a origem já preenchida
+            // pelo endereço completo informado pelo usuário e o destino como farmácias.
+            const mapsDirectionsUrl = 'https://www.google.com/maps/dir/?api=1'
+                + '&origin=' + encodeURIComponent(pharmacySearchAddress)
+                + '&destination=' + encodeURIComponent('farmácias')
+                + '&travelmode=driving';
+
+            const mapsSearchUrl = 'https://www.google.com/maps/search/?api=1&query='
+                + encodeURIComponent(`farmácias em até ${radiusKm} km de ${pharmacySearchAddress}`);
+
+            status.textContent = 'Endereço pronto para abrir no Google Maps.';
+            list.innerHTML = `
+                <div class="success-box">
+                    <strong>Endereço de partida preenchido:</strong><br>
+                    ${escapeHTML(pharmacySearchAddress)}<br>
+                    <strong>Raio selecionado:</strong> ${radiusKm} km
+                </div>
+                <div class="pharmacy-card">
+                    <div class="pharmacy-name">Encontre farmácias próximas no Google Maps</div>
+                    <p class="muted" style="margin:8px 0 12px;">
+                        Ao abrir as rotas, o endereço informado será usado como ponto de partida.
+                        O Google Maps mostrará as opções disponíveis na região.
+                    </p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <a class="btn btn-primary" href="${mapsDirectionsUrl}" target="_blank" rel="noopener noreferrer">
+                            🧭 Abrir rotas com origem preenchida
+                        </a>
+                        <a class="btn btn-secondary" href="${mapsSearchUrl}" target="_blank" rel="noopener noreferrer">
+                            🗺️ Pesquisar farmácias no mapa
+                        </a>
+                    </div>
+                </div>
+                <p class="muted" style="margin-top:12px;">
+                    O raio escolhido é enviado como referência na pesquisa; a área e os resultados efetivos são definidos pelo Google Maps.
+                    Confirme diretamente com a farmácia o horário, estoque e preço.
+                </p>`;
+        }
+
+        function contactPharmacy(pharmacyName, med) {
+            const msg = `Olá! Encontrei o medicamento *${med}* no aplicativo *Dose Certa* e gostaria de informações sobre a compra na *${pharmacyName}*.`;
+            window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
+        }
+
+        function createMicroAd(e) {
+            e.preventDefault();
+            if (currentUser?.role !== 'admin') { alert('Apenas o administrador pode publicar anúncios.'); return; }
+            const medName = document.getElementById('ad-med-name').value.trim();
+            const company = document.getElementById('ad-company').value.trim();
+            const priceRaw = document.getElementById('ad-price').value;
+            const discountRaw = document.getElementById('ad-discount').value;
+            const price = priceRaw === '' ? null : Number(priceRaw);
+            const discount = discountRaw === '' ? 0 : Number(discountRaw);
+            const msg = document.getElementById('ad-msg').value.trim();
+            const link = document.getElementById('ad-link').value.trim();
+            sharedAds.push({ id: Date.now(), medName, company, price, discount, msg, link, createdAt: new Date().toISOString() });
+            myAds = sharedAds;
+            localStorage.setItem(SHARED_ADS_KEY, JSON.stringify(sharedAds));
+            document.getElementById('form-ad').reset();
+            renderActiveAds();
+            alert('Anúncio publicado e disponível na área de anunciantes de todos os usuários deste navegador.');
+        }
+
+        function deleteMicroAd(id) {
+            if (currentUser?.role !== 'admin') return;
+            if (!confirm('Deseja realmente excluir este anúncio?')) return;
+            sharedAds = sharedAds.filter(ad => ad.id !== id);
+            myAds = sharedAds;
+            localStorage.setItem(SHARED_ADS_KEY, JSON.stringify(sharedAds));
+            renderActiveAds();
+        }
+
+        function renderActiveAds() {
+            const list = document.getElementById('ads-active-list');
+            if (!list) return;
+            list.innerHTML = '';
+            const ads = JSON.parse(localStorage.getItem(SHARED_ADS_KEY) || 'null') || sharedAds || initialAds;
+            sharedAds = ads; myAds = ads;
+            if (!ads.length) { list.innerHTML = '<p class="muted">Nenhum anúncio publicado no momento.</p>'; return; }
+            ads.forEach(ad => {
+                const item = document.createElement('div');
+                item.className = 'micro-ad-box';
+                item.style.borderStyle = 'solid';
+                const priceText = ad.price == null || ad.price === '' ? '' : `<p><strong>Preço:</strong> R$ ${Number(ad.price).toFixed(2)}${Number(ad.discount) > 0 ? ` (${Number(ad.discount)}% de desconto)` : ''}</p>`;
+                const link = ad.link ? `<p><a href="${escapeHTML(ad.link)}" target="_blank" rel="noopener noreferrer">Saiba mais / Acessar oferta</a></p>` : '';
+                const adminActions = currentUser?.role === 'admin' ? `<button class="btn btn-danger btn-sm" type="button" onclick="deleteMicroAd(${Number(ad.id)})">🗑 Excluir anúncio</button>` : '';
+                item.innerHTML = `<span class="ad-tag" style="background:var(--primary);">${currentUser?.role === 'admin' ? 'Publicado' : 'Oferta'}</span><h5>${escapeHTML(ad.company)} — ${escapeHTML(ad.medName)}</h5><p>${escapeHTML(ad.msg)}</p>${priceText}${link}${adminActions}`;
+                list.appendChild(item);
+            });
+        }
+
+        // Utilitários de segurança de exibição e datas
+        function escapeHTML(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+        }
+        function safeColor(value) {
+            const v = String(value || '').trim();
+            return /^(#[0-9a-f]{3,8}|[a-zA-Z]{3,20})$/.test(v) ? v : '#e0f2fe';
+        }
+        function formatDate(value) {
+            if (!value) return '—';
+            const d = new Date(value.includes('T') ? value : value+'T00:00:00');
+            return isNaN(d) ? value : d.toLocaleDateString('pt-BR');
+        }
+        function notifyUser(title, body) {
+            if ('Notification' in window && Notification.permission === 'granted') new Notification(title, { body });
+            playAlarm();
+        }
+        function playAlarm() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx(), osc = ctx.createOscillator(), gain = ctx.createGain();
+                osc.type = 'sine'; osc.frequency.value = 880; gain.gain.value = 0.08;
+                osc.connect(gain); gain.connect(ctx.destination); osc.start();
+                setTimeout(() => { osc.stop(); ctx.close(); }, 650);
+            } catch (e) { console.warn('Áudio indisponível:', e); }
+        }
+        async function enableNotifications() {
+            if (!('Notification' in window)) { alert('Este navegador não oferece notificações.'); return; }
+            const permission = await Notification.requestPermission();
+            alert(permission === 'granted' ? 'Notificações ativadas. Mantenha a página aberta para os lembretes.' : 'Permissão de notificação não concedida.');
+        }
+        function startReminderMonitor() {
+            if (reminderTimer) clearInterval(reminderTimer);
+            reminderTimer = setInterval(() => {
+                if (!currentUser) return;
+                const now = new Date(), day = now.toISOString().slice(0,10), hm = now.toTimeString().slice(0,5);
+                myMeds.forEach(med => {
+                    const slot = `${day}_${med.id}_${hm}`;
+                    if (med.time === hm && !alertedSlots.has(slot)) {
+                        alertedSlots.add(slot);
+                        const already = adherenceHistory.some(h => h.medId === med.id && h.date.slice(0,10) === day && h.scheduledTime === hm && h.status === 'tomado');
+                        if (!already) notifyUser(`Hora do medicamento: ${med.name}`, `Dose prevista: ${med.dose}. Abra o Dose Certa para registrar.`);
+                    }
+                });
+            }, 15000);
+        }
+        function checkStockAlerts() {
+            const low = myMeds.filter(m => m.stock <= Number(m.lowStock ?? 5));
+            if (low.length && !sessionStorage.getItem('stock-alert-shown')) {
+                sessionStorage.setItem('stock-alert-shown', '1');
+                console.info('Dose Certa: estoque baixo', low.map(m => m.name));
+            }
+        }
+        function checkPossibleInteractions() {
+            if (myMeds.length > 1) {
+                alert('Atenção: há mais de um medicamento cadastrado. O protótipo não possui uma base clínica validada para detectar interações. Confirme a combinação com médico ou farmacêutico e não altere o tratamento por conta própria.');
+            }
+        }
+
+        // Histórico de adesão
+        function renderHistory() {
+            const box = document.getElementById('adherence-history');
+            const summary = document.getElementById('adherence-summary');
+            if (!box || !summary) return;
+            const taken = adherenceHistory.filter(x => x.status === 'tomado').length;
+            const delayed = adherenceHistory.filter(x => x.status === 'adiado').length;
+            const ignored = adherenceHistory.filter(x => x.status === 'ignorado').length;
+            summary.innerHTML = `<div class="feature-stat"><strong>${taken}</strong><span>Doses tomadas</span></div><div class="feature-stat"><strong>${delayed}</strong><span>Doses adiadas</span></div><div class="feature-stat"><strong>${ignored}</strong><span>Doses ignoradas</span></div>`;
+            box.innerHTML = adherenceHistory.slice().reverse().map(h => {
+                const cls = h.status === 'tomado' ? 'pill-taken' : h.status === 'adiado' ? 'pill-late' : 'pill-ignored';
+                return `<div class="history-row"><span class="pill-tag ${cls}">${escapeHTML(h.status)}</span> <strong>${escapeHTML(h.medName)}</strong><br><small>${new Date(h.date).toLocaleString('pt-BR')} • Dose prevista: ${escapeHTML(h.scheduledTime || '—')}</small></div>`;
+            }).join('') || '<p class="muted">Nenhuma dose registrada ainda.</p>';
+        }
+
+        // Diário de saúde
+        function saveHealthEntry(e) {
+            e.preventDefault();
+            const entry = {
+                id: Date.now(), date: document.getElementById('health-date').value || new Date().toISOString(),
+                pressure: document.getElementById('health-pressure').value.trim(),
+                glucose: document.getElementById('health-glucose').value,
+                weight: document.getElementById('health-weight').value,
+                temperature: document.getElementById('health-temp').value,
+                mood: document.getElementById('health-mood').value,
+                pain: document.getElementById('health-pain').value,
+                symptoms: document.getElementById('health-symptoms').value.trim()
+            };
+            healthEntries.push(entry);
+            saveToStorage();
+            e.target.reset();
+            setDefaultHealthDate();
+            renderHealthHistory();
+        }
+        function setDefaultHealthDate() {
+            const el = document.getElementById('health-date');
+            if (el && !el.value) {
+                const d = new Date(Date.now() - new Date().getTimezoneOffset()*60000);
+                el.value = d.toISOString().slice(0,16);
+            }
+        }
+        function renderHealthHistory() {
+            const box = document.getElementById('health-history');
+            if (!box) return;
+            box.innerHTML = '<h3 style="margin-bottom:10px">Registros recentes</h3>' + healthEntries.slice().reverse().map(h =>
+                `<div class="log-row"><strong>${formatDate(h.date)} ${h.date.includes('T') ? h.date.slice(11,16) : ''}</strong><p class="muted">Pressão: ${escapeHTML(h.pressure || '—')} • Glicemia: ${escapeHTML(h.glucose || '—')} • Peso: ${escapeHTML(h.weight || '—')} kg • Temperatura: ${escapeHTML(h.temperature || '—')} °C • Dor: ${escapeHTML(h.pain || '—')}/10</p><p class="muted">Humor: ${escapeHTML(h.mood || '—')} • ${escapeHTML(h.symptoms || 'Sem sintomas descritos')}</p></div>`
+            ).join('') || '<p class="muted">Nenhum registro de saúde cadastrado.</p>';
+        }
+
+        // Relatórios e gráficos simples em Canvas
+        function drawBars(canvasId, values, title, color) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d'), w = canvas.width, h = canvas.height;
+            ctx.clearRect(0,0,w,h); ctx.fillStyle = '#0f172a'; ctx.font = 'bold 18px sans-serif'; ctx.fillText(title, 20, 28);
+            if (!values.length) { ctx.fillStyle='#64748b'; ctx.font='16px sans-serif'; ctx.fillText('Sem dados suficientes para o gráfico.',20,80); return; }
+            const max = Math.max(1,...values.map(v => Number(v.value)||0));
+            const chartH = h-75, barW = Math.max(24, (w-60)/values.length-12);
+            values.forEach((v,i) => {
+                const x=35+i*(barW+12), bh=(Number(v.value)||0)/max*(chartH-20);
+                ctx.fillStyle=color; ctx.fillRect(x,h-35-bh,barW,bh);
+                ctx.fillStyle='#334155'; ctx.font='12px sans-serif'; ctx.fillText(String(v.label).slice(0,12),x,h-14);
+                ctx.fillText(String(v.value),x,h-42-bh);
+            });
+        }
+        function renderReports() {
+            const stats = document.getElementById('report-stats');
+            if (!stats) return;
+            const total = adherenceHistory.length, took = adherenceHistory.filter(x=>x.status==='tomado').length;
+            const rate = total ? Math.round(took/total*100) : 0;
+            stats.innerHTML = `<div class="feature-stat"><strong>${rate}%</strong><span>Adesão registrada</span></div><div class="feature-stat"><strong>${myMeds.length}</strong><span>Medicamentos cadastrados</span></div><div class="feature-stat"><strong>${healthEntries.length}</strong><span>Registros de saúde</span></div>`;
+            const last7 = Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));const key=d.toISOString().slice(0,10);return {label:key.slice(5),value:adherenceHistory.filter(x=>x.date.slice(0,10)===key&&x.status==='tomado').length};});
+            drawBars('adherence-chart',last7,'Doses tomadas — últimos 7 dias','#0284c7');
+            const weights = healthEntries.filter(x=>x.weight).slice(-8).map(x=>({label:formatDate(x.date),value:Number(x.weight)}));
+            drawBars('health-chart',weights,'Registros de peso (kg)','#0d9488');
+        }
+        function generateMedicalReport() {
+            renderReports();
+            const rows = myMeds.map(m=>`<tr><td>${escapeHTML(m.name)}</td><td>${escapeHTML(m.dose)}</td><td>${m.stock}</td><td>${escapeHTML(m.time)}</td></tr>`).join('');
+            const history = adherenceHistory.slice(-100).map(h=>`<tr><td>${new Date(h.date).toLocaleString('pt-BR')}</td><td>${escapeHTML(h.medName)}</td><td>${escapeHTML(h.status)}</td></tr>`).join('');
+            const health = healthEntries.slice(-100).map(h=>`<tr><td>${formatDate(h.date)}</td><td>${escapeHTML(h.pressure||'—')}</td><td>${escapeHTML(h.glucose||'—')}</td><td>${escapeHTML(h.weight||'—')}</td><td>${escapeHTML(h.temperature||'—')}</td><td>${escapeHTML(h.mood||'—')}</td><td>${escapeHTML(h.symptoms||'—')}</td></tr>`).join('');
+            const report = window.open('', '_blank');
+            if (!report) { alert('Permita pop-ups para gerar o relatório.'); return; }
+            report.document.write(`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatório Dose Certa</title><style>body{font:14px Arial;padding:24px;color:#172033}h1,h2{color:#075985}table{width:100%;border-collapse:collapse;margin:12px 0 24px}td,th{border:1px solid #bbb;padding:7px;text-align:left}small{color:#555}@media print{button{display:none}}</style></head><body><h1>Relatório de acompanhamento — Dose Certa</h1><p>Paciente: ${escapeHTML(currentUser?.name||'')} • Gerado em ${new Date().toLocaleString('pt-BR')}</p><h2>Medicamentos</h2><table><tr><th>Medicamento</th><th>Dose</th><th>Estoque</th><th>Horário</th></tr>${rows||'<tr><td colspan="4">Sem medicamentos</td></tr>'}</table><h2>Adesão</h2><table><tr><th>Data</th><th>Medicamento</th><th>Status</th></tr>${history||'<tr><td colspan="3">Sem registros</td></tr>'}</table><h2>Diário de saúde</h2><table><tr><th>Data</th><th>Pressão</th><th>Glicemia</th><th>Peso</th><th>Temperatura</th><th>Humor</th><th>Sintomas</th></tr>${health||'<tr><td colspan="7">Sem registros</td></tr>'}</table><p><small>Este documento organiza dados informados pelo usuário e não constitui diagnóstico ou orientação médica.</small></p><button onclick="window.print()">Imprimir / Salvar como PDF</button></body></html>`);
+            report.document.close();
+        }
+
+        // Rede de apoio: abre WhatsApp com mensagem preparada
+        function loadCaregiver() {
+            document.getElementById('caregiver-name').value = caregiver.name || '';
+            document.getElementById('caregiver-phone').value = caregiver.phone || '';
+        }
+        function saveCaregiver() {
+            caregiver = { name: document.getElementById('caregiver-name').value.trim(), phone: document.getElementById('caregiver-phone').value.replace(/\D/g,'') };
+            saveToStorage();
+            const status = document.getElementById('caregiver-status');
+            status.style.display = 'block';
+            status.textContent = caregiver.name ? `Contato ${caregiver.name} salvo nesta conta.` : 'Contato salvo.';
+        }
+        function alertCaregiver(med) {
+            if (!caregiver.phone) return;
+            const msg = `Dose Certa: a dose de ${med.name} (${med.dose}), prevista para ${med.time}, foi registrada como ignorada. Entre em contato para verificar se a pessoa precisa de ajuda.`;
+            window.open(`https://wa.me/${caregiver.phone}?text=${encodeURIComponent(msg)}`,'_blank');
+        }
+
+
+        if (!localStorage.getItem(SHARED_ADS_KEY)) localStorage.setItem(SHARED_ADS_KEY, JSON.stringify(initialAds));
+        setDefaultHealthDate();
+        initializeAuth();
+    </script>
+</body>
+</html>
